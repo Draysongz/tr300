@@ -791,8 +791,8 @@ const Dex = ({ coins }) => {
             src="/logo.png"
             alt="Logo"
             objectFit="contain"
-            width="100%"
-            height="100%"
+            width="50%"
+            height="50%"
           />
         </Box>
         <Box
@@ -1016,7 +1016,7 @@ const Dex = ({ coins }) => {
               : "Initialize"}
           </Button>
 
-              <Button
+              {/* <Button
             alignSelf={"center"}
             w={useBreakpointValue({ base: "80%", medium: "80%", lg: "27vw" })}
             mb={4}
@@ -1030,7 +1030,7 @@ const Dex = ({ coins }) => {
             {isLoading
               ? "Loading..."
               : 'Withdraw Jettons'}
-          </Button>
+          </Button> */}
           
         </Flex>
 
@@ -1060,7 +1060,7 @@ const Dex = ({ coins }) => {
 
         <HStack mb={7}>
           <Text color={"#9D9463"}>Built with precision by </Text>
-          <Image src={"/Footer.png"} />
+          <Text color={"#9D9463"}>TR300</Text>
         </HStack>
       </Flex>
 
