@@ -17,6 +17,7 @@ type SwapRootConfig = {
   gasFee: bigint;
   fwdAmount: bigint;
   minValue: bigint;
+  percentage: number;
   swapAggregatorCode: Cell;
 };
 // slice admin_address = ds~load_msg_addr();
@@ -32,6 +33,7 @@ function swapRootConfigToCell(config: SwapRootConfig) {
     .storeCoins(config.gasFee)
     .storeCoins(config.fwdAmount)
     .storeCoins(config.minValue)
+    .storeUint(config.percentage, 32)
     .storeRef(config.swapAggregatorCode)
     .endCell();
 }
@@ -82,6 +84,7 @@ export class SwapRoot implements Contract {
       gasFee: bigint;
       fwdAmount: bigint;
       minValue: bigint;
+      percentage: number;
     }
   ) {
     await provider.internal(via, {
@@ -93,6 +96,7 @@ export class SwapRoot implements Contract {
         .storeCoins(options.gasFee)
         .storeCoins(options.fwdAmount)
         .storeCoins(options.minValue)
+        .storeUint(options.percentage, 32)
         .endCell(),
     });
   }
@@ -133,7 +137,8 @@ export class SwapRoot implements Contract {
     provider: ContractProvider,
     via: Sender,
     value: bigint,
-    amount: bigint
+    amount: bigint,
+    address: Address
   ) {
     await provider.internal(via, {
       value,
@@ -141,6 +146,7 @@ export class SwapRoot implements Contract {
       body: beginCell()
         .storeUint(Op.withdraw_ton, 32)
         .storeCoins(amount)
+        .storeAddress(address)
         .endCell(),
     });
   }
@@ -168,6 +174,7 @@ export class SwapRoot implements Contract {
       gasFee: resp.stack.readNumber(),
       fwdAmount: resp.stack.readNumber(),
       minValue: resp.stack.readNumber(),
+      percentage: resp.stack.readNumber(),
       swapAggregatorCode: resp.stack.readCell(),
     };
   }

@@ -75,13 +75,14 @@ export class Swap {
       ); // expectedAmountOut - 1%
       console.log("minAmountOut", minAmountOut, fromNano(minAmountOut));
 
-      const gasFee = Number(gas) > 0 ? gas : toNano("0.215");
+      const gasFee = Number(gas) > 0 ? gas : toNano("0.2");
       console.log("gasFee", gasFee, gasFee + amountIn, gas);
 
       return await swapAggregator.sendSwapTonToJetton(
         sender,
-        amountIn + gasFee,
+        amountIn + gasFee + toNano("0.02"),
         {
+          amount: amountIn,
           receipientAddress: userAddress,
           poolAddress: TON_TOKEN_POOL.address,
           tonVaultAddr: tonVault.address,
