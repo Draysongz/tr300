@@ -78,7 +78,7 @@ export class Swap {
 
       return await swapAggregator.sendSwapTonToJetton(
         sender,
-        amountIn + gasFee + toNano("0.02"),
+        amountIn + gasFee + toNano("0.05"),
         {
           amount: amountIn,
           receipientAddress: userAddress,
