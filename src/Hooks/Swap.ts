@@ -73,10 +73,8 @@ export class Swap {
       const minAmountOut = toNano(
         (Number(fromNano(expectedAmountOut)) * 100 - slippage) / 100
       ); // expectedAmountOut - 1%
-      console.log("minAmountOut", minAmountOut, fromNano(minAmountOut));
 
       const gasFee = Number(gas) > 0 ? gas : toNano("0.2");
-      console.log("gasFee", gasFee, gasFee + amountIn, gas);
 
       return await swapAggregator.sendSwapTonToJetton(
         sender,
@@ -171,14 +169,14 @@ export class Swap {
 
       return await TOKEN_1_WALLET.sendTransfer(
         sender,
-        toNano("0.35") + toNano(Number(fromNano(jettonPriceToTon)) * 0.01),
+        toNano("0.37") + toNano(Number(fromNano(jettonPriceToTon)) * 0.001),
         {
           queryId: 0,
           amount: amountIn,
           destination: userSwapAggregatorAddress,
           responseAddress: userAddress,
           customPayload: new Cell(),
-          forwardAmount: toNano("0.3"),
+          forwardAmount: toNano("0.33"),
           forwardPayload: beginCell()
             .storeRef(
               VaultJetton.createSwapPayload({
@@ -276,14 +274,14 @@ export class Swap {
       );
       return await TOKEN_1_WALLET.sendTransfer(
         sender,
-        toNano("0.35") + toNano(Number(fromNano(jettonPriceToTon)) * 0.01),
+        toNano("0.37") + toNano(Number(fromNano(jettonPriceToTon)) * 0.001),
         {
           queryId: 0,
           amount: amountIn,
           destination: userSwapAggregatorAddress,
           responseAddress: userAddress,
           customPayload: new Cell(),
-          forwardAmount: toNano("0.3"),
+          forwardAmount: toNano("0.33"),
           forwardPayload: beginCell()
             .storeRef(
               VaultJetton.createSwapPayload({
