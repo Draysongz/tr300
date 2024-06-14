@@ -779,10 +779,6 @@ const Dex = ({ coins }) => {
     <Flex
       direction="column"
       minH="100vh"
-      backgroundImage={`url(${bg.src})`}
-      backgroundSize="contain"
-      backgroundPosition="center"
-      backgroundRepeat="no-repeat"
       bgColor="#0D0904"
     >
       <Flex justify="space-between" align="center" p="4">
