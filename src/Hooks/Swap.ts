@@ -33,19 +33,11 @@ export class Swap {
     amountIn: bigint,
     gas: bigint,
     slippage: number,
-    deadline: number,
-    referralAddr: string
+    deadline: number
   ) {
     if (!userAddress) return;
     if (!(Number(amountIn) > 0)) return;
     try {
-      let referralAddress = beginCell().storeAddress(userAddress).endCell();
-      if (referralAddr !== "") {
-        referralAddress = beginCell()
-          .storeAddress(Address.parse(referralAddr))
-          .endCell();
-      }
-
       const TON = Asset.native();
       const TOKEN = Asset.jetton(Address.parse(tokenAddress));
 
@@ -95,7 +87,6 @@ export class Swap {
           tonVaultAddr: tonVault.address,
           limit: toNano(0),
           deadline,
-          referralAddress,
         }
       );
     } catch (err) {
@@ -113,17 +104,11 @@ export class Swap {
     amountIn: bigint,
     jettonPriceToTon: bigint,
     limit: bigint,
-    deadline: number,
-    referralAddr: string
+    deadline: number
   ) {
     if (!userAddress) return;
     if (!(Number(amountIn) > 0)) return;
-    let referralAddress = beginCell().storeAddress(userAddress).endCell();
-    if (referralAddr) {
-      referralAddress = beginCell()
-        .storeAddress(Address.parse(referralAddr))
-        .endCell();
-    }
+
     const TON = Asset.native();
     const TOKEN_1 = Asset.jetton(Address.parse(tokenAddress1));
     const TOKEN_2 = Asset.jetton(Address.parse(tokenAddress2));
@@ -185,14 +170,14 @@ export class Swap {
 
       return await TOKEN_1_WALLET.sendTransfer(
         sender,
-        toNano("0.3") + toNano(Number(fromNano(jettonPriceToTon)) * 0.01),
+        toNano("0.35") + toNano(Number(fromNano(jettonPriceToTon)) * 0.01),
         {
           queryId: 0,
           amount: amountIn,
           destination: userSwapAggregatorAddress,
           responseAddress: userAddress,
           customPayload: new Cell(),
-          forwardAmount: toNano("0.25"),
+          forwardAmount: toNano("0.3"),
           forwardPayload: beginCell()
             .storeRef(
               VaultJetton.createSwapPayload({
@@ -209,7 +194,6 @@ export class Swap {
               ).address
             )
             .storeAddress(TOKEN_1_VAULT.address)
-            .storeRef(referralAddress)
             .endCell(),
         }
       );
@@ -227,17 +211,10 @@ export class Swap {
     amountIn: bigint,
     jettonPriceToTon: bigint,
     slippage: number,
-    deadline: number,
-    referralAddr: string
+    deadline: number
   ) {
     if (!userAddress) return;
     if (!(Number(amountIn) > 0)) return;
-    let referralAddress = beginCell().storeAddress(userAddress).endCell();
-    if (referralAddr) {
-      referralAddress = beginCell()
-        .storeAddress(Address.parse(referralAddr))
-        .endCell();
-    }
 
     const TON = Asset.native();
     const TOKEN = Asset.jetton(Address.parse(tokenAddress));
@@ -298,14 +275,14 @@ export class Swap {
       );
       return await TOKEN_1_WALLET.sendTransfer(
         sender,
-        toNano("0.3") + toNano(Number(fromNano(jettonPriceToTon)) * 0.01),
+        toNano("0.35") + toNano(Number(fromNano(jettonPriceToTon)) * 0.01),
         {
           queryId: 0,
           amount: amountIn,
           destination: userSwapAggregatorAddress,
           responseAddress: userAddress,
           customPayload: new Cell(),
-          forwardAmount: toNano("0.25"),
+          forwardAmount: toNano("0.3"),
           forwardPayload: beginCell()
             .storeRef(
               VaultJetton.createSwapPayload({
@@ -321,7 +298,6 @@ export class Swap {
               ).address
             )
             .storeAddress(TOKEN_1_VAULT.address)
-            .storeRef(referralAddress)
             .endCell(),
         }
       );

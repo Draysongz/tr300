@@ -53,23 +53,6 @@ export function useSwapAggregator() {
   }, [swapRoot, address]);
 
   useEffect(() => {
-    if (!swapAggregator) return;
-    const aggregatorData = async () => {
-      try {
-        const { noReferredUsers, earned } =
-          await swapAggregator.getSwapAggregatorData();
-
-        setNoReferred(noReferredUsers);
-        setReferralEarnings(earned);
-      } catch (err) {
-        console.log(err.message);
-      }
-    };
-    aggregatorData();
-    return () => {};
-  }, [swapAggregator]);
-
-  useEffect(() => {
     if (!userSwapAggregatorAddress) return;
     async function contractStatus() {
       try {
@@ -104,8 +87,7 @@ export function useSwapAggregator() {
       tokenAddress: string,
       amountIn: bigint,
       slippage = 1,
-      deadline = 5,
-      referralAddr = ""
+      deadline = 5
     ) =>
       await Swap.tonToJetton(
         swapAggregator,
@@ -116,8 +98,7 @@ export function useSwapAggregator() {
         amountIn,
         gas,
         slippage,
-        deadline,
-        referralAddr
+        deadline
       ),
 
     swapJettonForJetton: async (
@@ -126,8 +107,7 @@ export function useSwapAggregator() {
       amountIn: bigint,
       jettonPriceToTon: bigint,
       limit = toNano(0),
-      deadline = 5,
-      referralAddr = ""
+      deadline = 5
     ) =>
       await Swap.jettonToJetton(
         sender,
@@ -139,8 +119,7 @@ export function useSwapAggregator() {
         amountIn,
         jettonPriceToTon,
         limit,
-        deadline,
-        referralAddr
+        deadline
       ),
 
     swapJettonForTon: async (
@@ -148,8 +127,7 @@ export function useSwapAggregator() {
       amountIn: bigint,
       jettonPriceToTon: bigint,
       slippage = 1,
-      deadline = 5,
-      referralAddr = ""
+      deadline = 5
     ) =>
       await Swap.jettonToTon(
         sender,
@@ -160,8 +138,7 @@ export function useSwapAggregator() {
         amountIn,
         jettonPriceToTon,
         slippage,
-        deadline,
-        referralAddr
+        deadline
       ),
 
     withDrawTon: async (amount: bigint) =>
