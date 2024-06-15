@@ -176,7 +176,8 @@ export class Swap {
           destination: userSwapAggregatorAddress,
           responseAddress: userAddress,
           customPayload: new Cell(),
-          forwardAmount: toNano("0.33"),
+          forwardAmount:
+            toNano("0.33") + toNano(Number(fromNano(jettonPriceToTon)) * 0.001),
           forwardPayload: beginCell()
             .storeRef(
               VaultJetton.createSwapPayload({
@@ -281,7 +282,8 @@ export class Swap {
           destination: userSwapAggregatorAddress,
           responseAddress: userAddress,
           customPayload: new Cell(),
-          forwardAmount: toNano("0.33"),
+          forwardAmount:
+            toNano("0.33") + toNano(Number(fromNano(jettonPriceToTon)) * 0.001),
           forwardPayload: beginCell()
             .storeRef(
               VaultJetton.createSwapPayload({
